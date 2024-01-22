@@ -24,6 +24,8 @@ private int portions;
 @Column(length = 400)
 @Lob
 private String description;
+@ManyToOne
+private Categoria categoria;
 
     public Integer getId() {
         return id;
@@ -79,5 +81,13 @@ private String description;
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 }

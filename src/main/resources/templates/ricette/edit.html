@@ -19,7 +19,7 @@
     <form
             id="edit-ricetta"
             th:action="@{/ricette/edit/{id}(id=${recipe.id})}"
-            th:object="${ricetta}"
+            th:object="${recipe}"
             method="post"
             class="row gy-2"
     >

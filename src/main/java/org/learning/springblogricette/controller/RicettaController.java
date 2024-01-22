@@ -55,7 +55,7 @@ public class RicettaController {
             return "ricette/create";
         }
         ricettarepository.save(formricetta);
-        return "redirect:/ricette/index";
+        return "redirect:/ricette";
     }
 
     //metodo delete di una ricetta
@@ -78,10 +78,10 @@ public class RicettaController {
     }
 
     @PostMapping("/edit/{id}")
-    public String store(@PathVariable Integer id, @Valid @ModelAttribute("formRicetta") Ricetta formRicetta) {
+    public String store(@PathVariable Integer id, @Valid @ModelAttribute("formRicetta") Ricetta formRicetta, BindingResult bindingresult) {
 
         ricettarepository.save(formRicetta);
-        return "redirect: ricette/index";
+        return "redirect:/ricette";
     }
 
 }
