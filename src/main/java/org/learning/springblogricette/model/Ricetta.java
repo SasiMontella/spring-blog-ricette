@@ -1,17 +1,28 @@
 package org.learning.springblogricette.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "ricette")
 public class Ricetta {
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
 private Integer id;
+@NotEmpty(message = "Inserisci il titolo della ricetta")
 private String title;
+@NotEmpty(message = "Inserisci gli ingredienti")
 private String ingridients;
 private String photo;
 private String time;
+@NotNull
+@Min(1)
 private int portions;
+@NotEmpty(message = "Inserisci la descrizione")
+@Column(length = 400)
+@Lob
 private String description;
 
     public Integer getId() {
