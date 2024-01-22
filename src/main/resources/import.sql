@@ -3,3 +3,9 @@ INSERT INTO ricette(title, ingridients, photo, `time`, portions, description) VA
 INSERT INTO ricette(title, ingridients, photo, `time`, portions, description) VALUES('Tiramisù', '750g di mascarpone, 260g di uova(circa 5 medie), 250g di savoiardi, 120g di zucchero, 300g di caffè, q.b. di cacao amaro', 'https://www.giallozafferano.it/images/237-23742/Tiramisu_450x300.jpg', '40 min', 8, 'Il classico dolce di chi ama il caffè e non solo ');
 INSERT INTO ricette(title, ingridients, photo, `time`, portions, description) VALUES('Polpette', '220g di manzo macinato, 30g di pane raffermo, 165g di salsiccia, 25g di Parmiggiano Reggiano, 1 uovo, q.b. di sale, q.b. di olio, q.b. di pepe', 'https://www.giallozafferano.it/images/242-24200/Polpette-di-carne_450x300.jpg', '20 min', 32, 'Polpette di carne di manzo della tradizione ma veramente buone');
 INSERT INTO ricette(title, ingridients, photo, `time`, portions, description) VALUES('Parmigiana di patate', '1kg di patate, 350g di provola, 160g di prosciutto cotto, 100g di Grana Padano, 500g di latte, 50g di burro, 25g di farina 00, q.b. di sale, q.b. di pepe, q.b. di noce moscata', 'https://www.giallozafferano.it/images/229-22972/Parmigiana-di-patate_450x300.jpg', '40 min', 6, 'Come la classica parmigiana di melenzane, ma con le patate');
+--categorie
+INSERT INTO categories(name) VALUES('Antipasto');
+INSERT INTO categories(name) VALUES('Primo Piatto');
+INSERT INTO categories(name) VALUES('Secondo Piatto');
+INSERT INTO categories(name) VALUES('Contorno');
+INSERT INTO categories(name) VALUES('Dessert');

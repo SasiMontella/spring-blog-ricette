@@ -84,6 +84,19 @@
             </div>
         </div>
         <div class="mb-3">
+            <label for="categoria">Categoria</label>
+            <select id="categoria" class="form-select" th:field="*{categoria}" th:errorClass="is-invalid">
+                <option value="">--Scegli un tipo--</option>
+                <option th:each="categoria : ${categoryList}" th:text="${categoria.name}"
+                        th:value="${categoria.id}"></option>
+            </select>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('categoria')}">
+                <ul>
+                    <li th:each="err : ${#fields.errors('categoria')}" th:text="${err}"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="mb-3">
             <button type="submit" class="btn btn-primary">Salva</button>
             <a class="btn btn-primary" th:href="@{/ricette}">Torna indietro</a>
         </div>

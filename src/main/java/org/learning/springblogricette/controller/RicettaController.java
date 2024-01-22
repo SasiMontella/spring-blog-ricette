@@ -1,7 +1,9 @@
 package org.learning.springblogricette.controller;
 
 import jakarta.validation.Valid;
+import org.learning.springblogricette.model.Categoria;
 import org.learning.springblogricette.model.Ricetta;
+import org.learning.springblogricette.repository.CategoriaRepository;
 import org.learning.springblogricette.repository.RicettaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,12 +21,20 @@ import java.util.Optional;
 public class RicettaController {
     @Autowired
     RicettaRepository ricettarepository;
+    @Autowired
+    CategoriaRepository categoriarepository;
 
     //Metodo che mostra la lista delle ricette
     @GetMapping
-    public String index(Model model) {
-        List<Ricetta> ricettaList = ricettarepository.findAll();
-        model.addAttribute("recipes", ricettaList);
+    public String index(@RequestParam(name = "keyword", required = false) String searchKeyword, Model model) {
+        List<Ricetta> ricetteList;
+        if (searchKeyword != null) {
+            ricetteList = ricettarepository.findByTitleContaining(searchKeyword);
+        } else {
+            ricetteList = ricettarepository.findAll();
+        }
+        model.addAttribute("recipes", ricetteList);
+        model.addAttribute("preloadSerch", searchKeyword);
         return "ricette/index";
     }
 
@@ -44,6 +54,8 @@ public class RicettaController {
     // metodo create per una ricetta
     @GetMapping("/create")
     public String create(Model model) {
+        List<Categoria> categoriaList = categoriarepository.findAll();
+        model.addAttribute("categoryList", categoriaList);
         model.addAttribute("ricetta", new Ricetta());
         return "ricette/create";
     }
@@ -51,6 +63,7 @@ public class RicettaController {
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("ricetta") Ricetta formricetta, Model model, BindingResult bindingresult) {
         if (bindingresult.hasErrors()) {
+            model.addAttribute("categoryList", categoriarepository.findAll());
             model.addAttribute("ricettaList", ricettarepository.findAll());
             return "ricette/create";
         }
@@ -71,6 +84,7 @@ public class RicettaController {
         Optional<Ricetta> result = ricettarepository.findById(id);
         if (result.isPresent()) {
             model.addAttribute("recipe", result.get());
+            model.addAttribute("categoryList", categoriarepository.findAll());
             return "ricette/edit";
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "La ricetta con id: " + id + " non esiste");
@@ -78,8 +92,11 @@ public class RicettaController {
     }
 
     @PostMapping("/edit/{id}")
-    public String store(@PathVariable Integer id, @Valid @ModelAttribute("formRicetta") Ricetta formRicetta, BindingResult bindingresult) {
-
+    public String store(@PathVariable Integer id, Model model, @Valid @ModelAttribute("formRicetta") Ricetta formRicetta, BindingResult bindingresult) {
+        if (bindingresult.hasErrors()) {
+            model.addAttribute("categoryList", categoriarepository.findAll());
+            return "ricette/edit";
+        }
         ricettarepository.save(formRicetta);
         return "redirect:/ricette";
     }
